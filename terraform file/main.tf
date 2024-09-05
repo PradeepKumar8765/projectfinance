@@ -26,6 +26,6 @@ resource "aws_instance" "test-server" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook /var/lib/jenkins/workspace/pipeline project/terraform file/ansible-playbook.yml"
+    command = "ansible-playbook ansible-playbook /var/lib/jenkins/workspace/pipeline\ project/terraform\ file/ansible-playbook.yml"
   }
 }
