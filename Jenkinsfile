@@ -38,11 +38,30 @@ pipeline {
             }
         }
         
-        stage('Push-Image') {
-            steps {
-                sh 'docker push pradeep82kumar/banking-project-demo:1.0'
+      stage('Push-Image') {
+    steps {
+        sh 'docker push pradeep82kumar/banking-project-demo:1.0'
+    }
+}
+
+    stage('Push-Image') {
+    steps {
+        sh 'docker push pradeep82kumar/banking-project-demo:1.0'
+    }
+}
+
+stage('Config & Deployment') {
+    steps {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                         credentialsId: 'AwsAccessKey', 
+                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            dir('terraform-files') {
+                sh 'sudo chmod 600 keypair2.pem'
+                sh 'terraform init'
+                sh 'terraform validate'
+                sh 'terraform apply --auto-approve'
             }
         }
     }
 }
-
