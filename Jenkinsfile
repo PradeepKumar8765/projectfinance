@@ -56,8 +56,8 @@ stage('Config & Deployment') {
                          credentialsId: 'AwsAccessKey', 
                          accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-            dir('terraform-files') {
-                sh 'sudo chmod 600 keypair2.pem'
+            dir('terraform files') {
+                sh 'sudo chmod 600 k8s.pem'
                 sh 'terraform init'
                 sh 'terraform validate'
                 sh 'terraform apply --auto-approve'
