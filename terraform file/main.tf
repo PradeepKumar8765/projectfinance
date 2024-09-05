@@ -1,4 +1,4 @@
-resource "aws_instance" "test_server" {
+resource "aws_instance" "test-server" {
   ami = "ami-0e86e20dae9224db8"
   instance_type = "t2.micro"
   key_name= "k8s"
@@ -16,7 +16,7 @@ tags = {
   Name = "test-server"
   }
 provisioner "local-exec" {
-  command = "echo ${aws_instance.test_server.public_ip} > inventory"
+  command = "echo ${aws_instance.test-server.public_ip} > inventory"
   }
 provisioner "local-exec" {
   command = "ansible-playbook /var/lib/jenkins/workspace/pipeline project/terraform file/ansible-playbook.yml"
