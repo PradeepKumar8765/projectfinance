@@ -5,7 +5,7 @@ resource "aws_instance" "test_server" {
   vpc_security_group_ids=["sg-0b2f60d0cb7032a9a"]
   connection {
   type = "ssh"
-  user = "ubunut"
+  user = "ubuntu"
   private_key = file("./k8s.pem")
   host = self.public_ip
   }
@@ -19,6 +19,6 @@ provisioner "local-exec" {
   command = "echo ${aws_instance.test-server.public_ip} > inventory"
   }
 provisioner "local-exec" {
-  command = "ansible-playbook 
+  command = "ansible-playbook /var/lib/jenkins/workspace/pipeline project/terraform file/ansible-playbook.yml
   }
 }
