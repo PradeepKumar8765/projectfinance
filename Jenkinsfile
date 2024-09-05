@@ -51,7 +51,7 @@ pipeline {
                                   accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                                   secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                     dir('terraform file') {
-                        sh 'sudo chmod 600 k8s.pem'
+                        sh 'sudo chmod 600 k8S.pem'
                         sh 'terraform init'
                         sh 'terraform validate'
                         sh 'terraform apply --auto-approve'
