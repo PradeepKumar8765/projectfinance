@@ -20,22 +20,20 @@ pipeline {
                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/pipeline project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                     }
             }
-        stage('Build docker image'){
-            steps{
-                script{
-                    sh 'docker build -t pradeep82kumar/staragileprojectfinance:v2 .'
-                    sh 'docker images'
+        stage('Create Docker Image') {
+           steps {
+               sh 'docker build -t pradeep82kumar/banking-project-demo:1.0 .'
+                    }
                 }
-            }
-        }
-         
-        
-     stage('Deploy') {
-            steps {
-                sh 'sudo docker run -itd --name My-first-containe21211 -p 8083:8081 pradeep82kumar/staragileprojectfinance:v2'
-                  
+       stage('Docker-Login') {
+           steps {
+               withCredentials([usernamePassword(credentialsId: 'Docker-login', passwordVariable: 'dockerpassword', usernameVariable: 'dockerlogin')]) {
+               sh 'docker login -u ${dockerlogin} -p ${dockerpassword}'
+                                   }
+                        }
                 }
-            }
-        
-    }
-}
+       stage('Push-Image') {
+           steps {
+               sh 'docker push pradeep82kumar/banking-project-demo:1.0'
+                     }
+                }
