@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Generate Test Report') {
+        stage('Generate Test Reports') {
             steps {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
                              reportDir: '/var/lib/jenkins/workspace/pipeline project/target/surefire-reports',
